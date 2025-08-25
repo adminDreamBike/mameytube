@@ -28,7 +28,7 @@ export default function RootLayout({
       </head>
       <body className={`${fonts.rubik.variable} pb-20 px-10 antialiased`}>
         <ReactQueryProvider>
-          <HydrationBoundary>
+          <HydrationBoundary state={null}>
             <Header onOpen={onOpen} />
             <SideBar isOpen={isOpen} onClose={onClose} />
             <ChakraUIProvider>{children}</ChakraUIProvider>
