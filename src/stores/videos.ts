@@ -5,16 +5,16 @@ import { VideoPreview } from "@/types/video";
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 
-interface VideoState {
-  kind: string;
-  etag: string;
-  items: VideoPreview[];
-  nextPageToken: string;
-  pageInfo: {
-    totalResults: number;
-    resultsPerPage: number;
-  };
-}
+// interface VideoState {
+//   kind: string;
+//   etag: string;
+//   items: VideoPreview[];
+//   nextPageToken: string;
+//   pageInfo: {
+//     totalResults: number;
+//     resultsPerPage: number;
+//   };
+// }
 interface Actions {
   setVideos: (video: any) => void;
   getVideoById: (id: string) => Item | undefined;
@@ -25,7 +25,7 @@ interface Actions {
 }
 
 export interface VideoStore {
-  video: VideoState;
+  video: any;
   filteredVideosByCategory?: any;
   filteredVideos?: any;
   selectedCategoryId: string | null;
@@ -57,7 +57,8 @@ const useVideoStore = create<VideoStore>()(
       actions: {
         setVideos: (video) => set(() => ({ video })),
         getVideoById: (id) => {
-          return get().video.data?.items.find((item) => item.id === id);
+          console.log("get().video.data?.items", get().video)
+          return get().video.data?.items.find((item: VideoPreview) => item.id === id);
         },
         setSelectedCategoryId: (categoryId) =>
           set({ selectedCategoryId: categoryId }),
@@ -71,7 +72,7 @@ const useVideoStore = create<VideoStore>()(
             return;
           }
           const filteredVideos = video.items.filter(
-            (item) => item.snippet.categoryId === categoryId
+            (item: VideoPreview) => item.snippet.categoryId === categoryId
           );
           set({
             filteredVideosByCategory: filteredVideos,
@@ -81,7 +82,7 @@ const useVideoStore = create<VideoStore>()(
         getChannelId: () => {
           const { video } = get();
           const channelIds = video.items
-            .map((item) => item.snippet.channelId)
+            .map((item: VideoPreview) => item.snippet.channelId)
             .join(",");
           set({ channelIds });
         },
@@ -116,8 +117,6 @@ export const useChannelIds = () => useVideoStore((state) => state.channelIds);
 export const useVideoById = (id: string) => {
   return useVideoStore((state) => {
     const videoId = getVideoId(id);
-    console.log("videoId", videoId)
-    console.log("state.video.items", state.video)
-    return state.video.items.find((video) => getVideoId(video.id) === videoId)
+    return state.video.items.find((video: VideoPreview) => getVideoId(video.id) === videoId)
   });
 };

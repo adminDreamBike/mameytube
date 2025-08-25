@@ -90,7 +90,7 @@ export const VideoPlayerContainer: React.FC<VideoPlayerContainerProps> = ({
   const textColor = useColorModeValue("gray.600", "gray.300");
   const mutedTextColor = useColorModeValue("gray.500", "gray.400");
 
-  const { snippet, id, contentDetails = {} } = video || {};
+  const { snippet, id, contentDetails } = video || {};
 
   const videoId = getVideoId(id);
 
@@ -220,6 +220,13 @@ export const VideoPlayerContainer: React.FC<VideoPlayerContainerProps> = ({
               onLoad={() => {}}
               onError={() => {}}
               placeholder={video?.snippet?.thumbnails?.high?.url}
+              width="100%"
+              height="100%"
+              autoplay={true}
+              boxProps={{
+                width: "100%",
+                height: "100%",
+              }}
             />
           ) : // <NativeVideoPlayer
           //   video={video}
@@ -247,7 +254,7 @@ export const VideoPlayerContainer: React.FC<VideoPlayerContainerProps> = ({
                 >
                   <HStack spacing="1">
                     <FiEye />
-                    <Text>{formatViews(video?.statistics?.viewCount)}</Text>
+                    <Text>{formatViews(video?.statistics?.viewCount || 0)}</Text>
                   </HStack>
                   <Text>.</Text>
                   <HStack spacing="1">
@@ -255,7 +262,7 @@ export const VideoPlayerContainer: React.FC<VideoPlayerContainerProps> = ({
                     <Text>{formatUploadDate(video?.snippet?.publishedAt)}</Text>
                   </HStack>
                   <Text>.</Text>
-                  <Text>{contentDetails && formatDuration(contentDetails?.duration)}</Text>
+                  <Text>{contentDetails?.hasOwnProperty('duration') && formatDuration(contentDetails?.duration || '')}</Text>
                   {/* TODO: Add video category */}
                 </HStack>
               </VStack>
@@ -280,7 +287,7 @@ export const VideoPlayerContainer: React.FC<VideoPlayerContainerProps> = ({
                       Share
                     </MenuButton>
                     <MenuList>
-                      {navigator.share && (
+                      {typeof navigator.share === 'function' && (
                         <MenuItem
                           icon={<FiExternalLink />}
                           onClick={() => handleShare("native")}

@@ -12,8 +12,7 @@ export default function Page() {
   const q_param = searchParams.get("q") || "";
   const { videos } = useSearchVideos({ q: q_param });
   const { setVideos } = useVideoActions();
-  
-console.log("videos", videos)
+
   useEffect(() => {
     if (videos) {
         setVideos(videos?.data)

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { VideoId } from "@/types/video";
 
 export function getCategories() {
@@ -24,12 +25,12 @@ export function getCategories() {
   return newCategories;
 }
 
-export const YTDurationToSeconds = (duration) => {
+export const YTDurationToSeconds = (duration: any) => {
   if (!duration) return 0;
 
   let match = duration.match(/PT(\d+H)?(\d+M)?(\d+S)?/);
 
-  match = match.slice(1).map(function(x) {
+  match = match.slice(1).map(function(x: any) {
     if (x != null) {
         return x.replace(/\D/, '');
     }

@@ -12,6 +12,7 @@ import {
 import VideoCard from "./VideoCard";
 import { useVideoActions } from "@/stores/videos";
 import { VideosResponse } from "@/types/video";
+import { getVideoId } from "@/lib/utils/utils";
 
 interface VideoGridProps {
     videos: VideosResponse;
@@ -43,11 +44,11 @@ const VideoGrid: FC<VideoGridProps> = ({
         xl: isRelated ? 1 : 4,
     })
 
-    const handleVideoHover = (videoId: string) => {
-        setHoveredVideo(videoId)
+    const handleVideoHover = (videoId: string | undefined) => {
+        setHoveredVideo(videoId || null)
     }
 
-    const handleVideoLeave = () => {
+    const handleVideoLeave = (): void => {
         setHoveredVideo(null)
     }
 
@@ -83,7 +84,7 @@ const VideoGrid: FC<VideoGridProps> = ({
             <SimpleGrid columns={columns} spacing={6}>
                 {videos?.items?.map((video) => (
                     <VideoCard
-                        key={video.id.videoId || video.id}
+                        key={getVideoId(video.id)}
                         video={video}
                         showPreview={hoveredVideo === video.id}
                         onHover={handleVideoHover}

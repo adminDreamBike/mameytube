@@ -215,7 +215,7 @@ const VideoCard: FC<VideoCardProps> = ({
                   <HStack spacing="1" fontSize="xs" color={textColor}>
                     <HStack spacing="1">
                       <FiEye />
-                      <Text>{formatViews(viewCount)}</Text>
+                      <Text>{formatViews(viewCount || 0)}</Text>
                     </HStack>
                     <Text>•</Text>
                     <Text>{formatTimeAgo(publishedAt)}</Text>

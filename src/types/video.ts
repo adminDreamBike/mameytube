@@ -19,7 +19,7 @@ export interface VideoId {
 export type VideoPlayerType = "iframe" | "native";
 
 export interface VideoPreview {
-  contentDetails: ContentDetails;
+  contentDetails?: ContentDetails;
   etag: string;
   id: string | VideoId;
   kind: string;
@@ -66,7 +66,7 @@ export interface VideoPreview {
     };
     title: string;
   };
-  statistics: {
+  statistics?: {
     commentCount: number;
     favoriteCount: number;
     likeCount: number;
