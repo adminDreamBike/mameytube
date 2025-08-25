@@ -13,7 +13,7 @@ import {
   Wrap,
   WrapItem,
 } from "@chakra-ui/react";
-import { FaYoutube, FaHouse } from "react-icons/fa6";
+import { FaHouse } from "react-icons/fa6";
 import { SiYoutubeshorts } from "react-icons/si";
 import { RiChatFollowUpFill } from "react-icons/ri";
 import { LuHistory, LuListVideo, LuThumbsUp } from "react-icons/lu";
@@ -27,6 +27,7 @@ import { TbLivePhoto } from "react-icons/tb";
 import { PiNewspaper } from "react-icons/pi";
 import { RxHamburgerMenu } from "react-icons/rx";
 import NextLink from "next/link";
+import { CirclePlay } from "lucide-react";
 
 export const SideBar = ({
   isOpen,
@@ -70,8 +71,8 @@ export const SideBar = ({
               </WrapItem>
               <WrapItem>
                 <Link href="/" as={NextLink} alignItems="center" display="flex">
-                  <Icon as={FaYoutube} boxSize={26} color="#ff0000" />
-                  <Text>Youtube</Text>
+                  <Icon as={CirclePlay} boxSize={26} color="#F4A644" />
+                  <Text fontWeight="bold" fontSize="20px">MaMeyTube</Text>
                 </Link>
               </WrapItem>
             </Wrap>

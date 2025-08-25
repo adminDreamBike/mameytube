@@ -8,12 +8,12 @@ import {
   Wrap,
   WrapItem,
 } from "@chakra-ui/react";
-import { FaYoutube } from "react-icons/fa6";
 import { SearchInput } from "../SearchInput/SearchInput";
 import NextLink from "next/link";
 import { BsBell } from "react-icons/bs";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { HiOutlinePlus } from "react-icons/hi2";
+import { CirclePlay } from "lucide-react";
 
 export const Header = ({ onOpen }: { onOpen: () => void }) => {
   return (
@@ -37,8 +37,10 @@ export const Header = ({ onOpen }: { onOpen: () => void }) => {
           </WrapItem>
           <WrapItem>
             <Link href="/" as={NextLink} alignItems="center" display="flex">
-              <Icon as={FaYoutube} boxSize={30} color="#ff0000" />
-              <Text fontWeight="bold" fontSize="20px">Youtube</Text>
+              <Icon as={CirclePlay} boxSize={30} color="#F4A644" />
+              <Text fontWeight="bold" fontSize="20px">
+                MaMeyTube
+              </Text>
             </Link>
           </WrapItem>
         </Wrap>
@@ -52,7 +54,7 @@ export const Header = ({ onOpen }: { onOpen: () => void }) => {
           icon={<HiOutlinePlus />}
           size="lg"
           fontSize="25px"
-          margin="20px"          
+          margin="20px"
         />
         <IconButton
           colorScheme="blue"

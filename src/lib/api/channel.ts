@@ -1,17 +1,18 @@
-import axios, { AxiosError } from "axios";
+import { AxiosError, AxiosResponse } from "axios";
+import apiClient from "./apiClient";
 
-export const searchChannel = async ({ channelId }: { channelId: string }) => {
+export const searchChannel = async ({
+  channelId,
+}: {
+  channelId: string;
+}): Promise<AxiosResponse> => {
   try {
-    const response = await axios.get(
-      "https://www.googleapis.com/youtube/v3/channels",
-      {
-        params: {
-          key: "AIzaSyBrIu3zYBXZb4gJMdPmywCS-hFA1ESy590",
-          id: channelId,
-          part: "snippet",
-        },
-      }
-    );
+    const response = await apiClient.get("/channels", {
+      params: {
+        id: channelId,
+        part: "snippet",
+      },
+    });
     return response;
   } catch (error) {
     throw error as AxiosError;

@@ -57,7 +57,7 @@ export const Video = ({
         )}
 
         <Flex flexDirection="column">
-          <Link as={NextLink} href={`/watch?id=${id}&title=${snippet?.title}`}>
+          <Link as={NextLink} href={`/video/${id}`}>
             <Text fontWeight="bold">{snippet?.title}</Text>
           </Link>
           <Text color="#aaaaaa">{snippet?.channelTitle}</Text>

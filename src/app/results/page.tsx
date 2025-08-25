@@ -1,20 +1,28 @@
 "use client";
 
-import { VideoList } from "@/components/VideoList/VideoList";
-import { Flex, Skeleton } from "@chakra-ui/react";
+import VideoGrid from "@/components/VideoList/VideoGrid";
+import { useSearchVideos } from "@/lib/queries/video";
+import { useVideoActions } from "@/stores/videos";
+import { Flex } from "@chakra-ui/react";
 import { useSearchParams } from "next/navigation";
-import { Suspense } from "react";
+import { useEffect } from "react";
 
 export default function Page() {
   const searchParams = useSearchParams();
   const q_param = searchParams.get("q") || "";
-  const URL_SEARCH_VIDEOS = "https://www.googleapis.com/youtube/v3/search";
-
+  const { videos } = useSearchVideos({ q: q_param });
+  const { setVideos } = useVideoActions();
+  
+console.log("videos", videos)
+  useEffect(() => {
+    if (videos) {
+        setVideos(videos?.data)
+    }
+}, [setVideos, videos])
+  
   return (
-    <Suspense fallback={<Skeleton height="40px" fadeDuration={4} />}>
-      <Flex flexDirection="column" gap="20px" marginTop="20px">
-        <VideoList url={URL_SEARCH_VIDEOS} q={q_param} type="video" />
-      </Flex>
-    </Suspense>
+    <Flex flexDirection="column" gap="20px" marginTop="20px">
+     <VideoGrid videos={videos?.data} />
+    </Flex>
   );
 }

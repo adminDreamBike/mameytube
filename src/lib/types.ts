@@ -67,7 +67,7 @@ export interface PageInfo {
 export type TypeVideo = "video" | "channel" | "playlist";
 
 export interface IVideo {
-  url: string;
+  initialVideos?: Item[];
   q?: string;
   type?: TypeVideo;
 }
