@@ -11,7 +11,6 @@ interface VideoPageProps {
 export default function VideoPage({ params }: VideoPageProps) {
   const video = useVideoById(params.id);
   const relatedVideos = useVideos();
-  console.log("video", video);
 
   return (
     <Container maxW="8xl" py="8">

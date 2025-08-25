@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { AxiosError } from "axios";
 import { TypeVideo } from "../types";
 import apiClient from "./apiClient";
@@ -6,15 +7,17 @@ const defaultParams = {
   part: "snippet",
   chart: "mostPopular",
   maxResults: 25,
+};
+
+interface GetVideoParams {
+  q?: string;
+  type?: TypeVideo;
 }
 
 export const getVideo = async ({
   q,
   type = "video",
-}: {
-  q?: string;
-  type?: TypeVideo;
-}): Promise<unknown> => {
+}: GetVideoParams): Promise<any> => {
   const withStatistics = q
     ? "snippet"
     : "id, statistics, snippet, contentDetails";
@@ -38,7 +41,7 @@ export const getVideo = async ({
 
 export const searchVideos = async ({
   q,
-  type = 'video'
+  type = "video",
 }: {
   q?: string;
   type?: TypeVideo;
@@ -48,7 +51,7 @@ export const searchVideos = async ({
     q: q,
     type: type,
     part: "snippet",
-  }
+  };
 
   try {
     const response = await apiClient.get("/search", {
@@ -58,4 +61,4 @@ export const searchVideos = async ({
   } catch (error) {
     throw error as AxiosError;
   }
-}
+};
