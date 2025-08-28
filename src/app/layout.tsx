@@ -20,9 +20,15 @@ export default function RootLayout({
 
   return (
     <html lang="en">
-      <body className={`${fonts.rubik.variable} antialiased`}>
+      <head>
+        <link
+          rel="stylesheet"
+          href="https://vjs.zencdn.net/7.11.4/video-js.css"
+        />
+      </head>
+      <body className={`${fonts.rubik.variable} pb-20 px-10 antialiased`}>
         <ReactQueryProvider>
-          <HydrationBoundary>
+          <HydrationBoundary state={null}>
             <Header onOpen={onOpen} />
             <SideBar isOpen={isOpen} onClose={onClose} />
             <ChakraUIProvider>{children}</ChakraUIProvider>

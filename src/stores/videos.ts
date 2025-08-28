@@ -1,19 +1,22 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { Item } from "@/lib/types";
+import { getVideoId } from "@/lib/utils/utils";
+import { VideoPreview } from "@/types/video";
 import { create } from "zustand";
+import { createJSONStorage, persist } from "zustand/middleware";
 
-interface VideoState {
-  kind: string;
-  etag: string;
-  items: Item[];
-  nextPageToken: string;
-  pageInfo: {
-    totalResults: number;
-    resultsPerPage: number;
-  };
-}
+// interface VideoState {
+//   kind: string;
+//   etag: string;
+//   items: VideoPreview[];
+//   nextPageToken: string;
+//   pageInfo: {
+//     totalResults: number;
+//     resultsPerPage: number;
+//   };
+// }
 interface Actions {
-  setVideos: (video: VideoState) => void;
+  setVideos: (video: any) => void;
   getVideoById: (id: string) => Item | undefined;
   setSelectedCategoryId: (selectedCategoryId: string) => void;
   setVideosByCategory: (categoryId: string) => void;
@@ -22,7 +25,7 @@ interface Actions {
 }
 
 export interface VideoStore {
-  video: VideoState;
+  video: any;
   filteredVideosByCategory?: any;
   filteredVideos?: any;
   selectedCategoryId: string | null;
@@ -44,49 +47,65 @@ const INITIAL_STATE = {
   filteredVideosByCategory: undefined,
 };
 
-const useVideoStore = create<VideoStore>((set, get) => ({
-  video: INITIAL_STATE.video,
-  filteredVideosByCategory: null,
-  selectedCategoryId: "all",
-  channelIds: "",
-  actions: {
-    setVideos: (video) => set(() => ({ video })),
-    getVideoById: (id) => get().video.items.find((item) => item.id === id),
-    setSelectedCategoryId: (categoryId) =>
-      set({ selectedCategoryId: categoryId }),
-    setVideosByCategory: (categoryId) => {
-      const { video } = get();
-      if (categoryId === "all") {
-        set({
-          filteredVideosByCategory: video.items,
-          selectedCategoryId: categoryId,
-        });
-        return;
-      }
-      const filteredVideos = video.items.filter(
-        (item) => item.snippet.categoryId === categoryId
-      );
-      set({
-        filteredVideosByCategory: filteredVideos,
-        selectedCategoryId: categoryId,
-      });
-    },
-    getChannelId: () => {
-      const { video } = get();
-      const channelIds = video.items
-        .map((item) => item.snippet.channelId)
-        .join(",");
-      set({ channelIds });
-    },
-    clearFilters: () =>
-      set({ filteredVideos: null, selectedCategoryId: "all", channelIds: "" }),
-  },
-}));
+const useVideoStore = create<VideoStore>()(
+  persist(
+    (set, get) => ({
+      video: INITIAL_STATE.video,
+      filteredVideosByCategory: null,
+      selectedCategoryId: "all",
+      channelIds: "",
+      actions: {
+        setVideos: (video) => set(() => ({ video })),
+        getVideoById: (id) => {
+          console.log("get().video.data?.items", get().video)
+          return get().video.data?.items.find((item: VideoPreview) => item.id === id);
+        },
+        setSelectedCategoryId: (categoryId) =>
+          set({ selectedCategoryId: categoryId }),
+        setVideosByCategory: (categoryId) => {
+          const { video } = get();
+          if (categoryId === "all") {
+            set({
+              filteredVideosByCategory: video.items,
+              selectedCategoryId: categoryId,
+            });
+            return;
+          }
+          const filteredVideos = video.items.filter(
+            (item: VideoPreview) => item.snippet.categoryId === categoryId
+          );
+          set({
+            filteredVideosByCategory: filteredVideos,
+            selectedCategoryId: categoryId,
+          });
+        },
+        getChannelId: () => {
+          const { video } = get();
+          const channelIds = video.items
+            .map((item: VideoPreview) => item.snippet.channelId)
+            .join(",");
+          set({ channelIds });
+        },
+        clearFilters: () =>
+          set({
+            filteredVideos: null,
+            selectedCategoryId: "all",
+            channelIds: "",
+          }),
+      },
+    }),
+    {
+      name: "video-store",
+      storage: createJSONStorage(() => localStorage),
+      skipHydration: true,
+    }
+  )
+);
 
 export const useFilteredVideos = () =>
   useVideoStore((state) => {
     if (!state.selectedCategoryId || state.selectedCategoryId === "all") {
-      return state.video.items;
+      return state.video.data?.items;
     }
     return state.filteredVideosByCategory;
   });
@@ -95,3 +114,9 @@ export const useSelectedCategoryId = () =>
 export const useVideoActions = () => useVideoStore((state) => state.actions);
 export const useVideos = () => useVideoStore((state) => state.video);
 export const useChannelIds = () => useVideoStore((state) => state.channelIds);
+export const useVideoById = (id: string) => {
+  return useVideoStore((state) => {
+    const videoId = getVideoId(id);
+    return state.video.items.find((video: VideoPreview) => getVideoId(video.id) === videoId)
+  });
+};
