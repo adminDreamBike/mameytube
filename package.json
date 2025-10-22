@@ -6,7 +6,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "lighthouse": "lighthouse https://127.0.0.1 --budget-path=./budget.json --port=9222"
   },
   "dependencies": {
     "@chakra-ui/icons": "^2.1.1",
