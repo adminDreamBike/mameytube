@@ -46,7 +46,7 @@ export const SideBar = ({
         onEsc={() => onClose}
         closeOnOverlayClick={true}
       >
-        <DrawerOverlay width="30vh !important" />
+        <DrawerOverlay width="30vh !important" bg="transparent" pointerEvents="none" />
         <DrawerContent
           width="30vh !important"
           borderRight="1px solid lightgray"

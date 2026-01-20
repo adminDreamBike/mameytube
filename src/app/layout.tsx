@@ -26,12 +26,23 @@ export default function RootLayout({
           href="https://vjs.zencdn.net/7.11.4/video-js.css"
         />
       </head>
-      <body className={`${fonts.rubik.variable} pb-20 px-10 antialiased`}>
+      <body className={`${fonts.rubik.variable} pb-20 antialiased`}>
         <ReactQueryProvider>
           <HydrationBoundary state={null}>
             <Header onOpen={onOpen} />
             <SideBar isOpen={isOpen} onClose={onClose} />
-            <ChakraUIProvider>{children}</ChakraUIProvider>
+            <ChakraUIProvider>
+              <div
+                style={{
+                  marginLeft: isOpen ? "30vh" : "0",
+                  transition: "margin-left 0.3s ease-in-out",
+                  paddingLeft: "2.5rem",
+                  paddingRight: "2.5rem",
+                }}
+              >
+                {children}
+              </div>
+            </ChakraUIProvider>
             <ThemeSwitcher />
           </HydrationBoundary>
           <ReactQueryDevtools initialIsOpen={false} />
