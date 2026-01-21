@@ -1,19 +1,21 @@
-import { render, screen, waitFor, fireEvent } from '@testing-library/react'
-import userEvent from '@testing-library/user-event'
+import { render, screen, fireEvent } from '@testing-library/react'
 import VideoCard from '@/components/VideoList/VideoCard'
 import { VideoPreview } from '@/types/video'
 import { ChakraProvider } from '@chakra-ui/react'
 import { ReactNode } from 'react'
 
 jest.mock('next/link', () => {
-  return ({ children, href }: { children: React.ReactNode; href: string }) => {
+  const MockLink = ({ children, href }: { children: React.ReactNode; href: string }) => {
     return <a href={href}>{children}</a>
   }
+  MockLink.displayName = 'MockLink'
+  return MockLink
 })
 
 const Wrapper = ({ children }: { children: ReactNode }) => (
   <ChakraProvider>{children}</ChakraProvider>
 )
+Wrapper.displayName = 'Wrapper'
 
 const mockVideo: VideoPreview = {
   kind: 'youtube#video',
@@ -134,7 +136,7 @@ describe('VideoCard', () => {
     jest.useFakeTimers()
     const onHover = jest.fn()
 
-    const { container } = render(<VideoCard video={mockVideo} onHover={onHover} showPreview={true} />, { wrapper: Wrapper })
+    render(<VideoCard video={mockVideo} onHover={onHover} showPreview={true} />, { wrapper: Wrapper })
 
     const card = screen.getByRole('link').parentElement
     if (card) {
