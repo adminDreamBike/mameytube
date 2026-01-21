@@ -134,14 +134,16 @@ describe('Video Queries', () => {
 
       mock.onGet('/videos').reply(200, mockResponse)
 
+      const wrapper = createWrapper()
+
       const { result: result1 } = renderHook(() => useVideos({ q: 'query1', initialVideos: undefined }), {
-        wrapper: createWrapper(),
+        wrapper,
       })
 
       await waitFor(() => expect(result1.current.isSuccess).toBe(true))
 
       const { result: result2 } = renderHook(() => useVideos({ q: 'query1', initialVideos: undefined }), {
-        wrapper: createWrapper(),
+        wrapper,
       })
 
       expect(result2.current.videos).toBeDefined()
