@@ -14,10 +14,26 @@ interface GetVideoParams {
   type?: TypeVideo;
 }
 
+// Helper function to check if API key is configured
+const checkApiKey = () => {
+  // Skip check in test environment as we're mocking the API calls
+  if (process.env.NODE_ENV === 'test') {
+    return;
+  }
+
+  if (!process.env.NEXT_PUBLIC_YOUTUBE_API_KEY) {
+    throw new Error(
+      'YouTube API key is not configured. Please set NEXT_PUBLIC_YOUTUBE_API_KEY in your environment variables.'
+    );
+  }
+};
+
 export const getVideo = async ({
   q,
   type = "video",
 }: GetVideoParams): Promise<any> => {
+  checkApiKey();
+
   const withStatistics = q
     ? "snippet"
     : "id, statistics, snippet, contentDetails";
@@ -35,6 +51,17 @@ export const getVideo = async ({
     });
     return response;
   } catch (error) {
+    const axiosError = error as AxiosError;
+
+    // Log detailed error information
+    console.error('getVideo API Error:', {
+      status: axiosError.response?.status,
+      message: axiosError.message,
+      endpoint: '/videos',
+      params: params,
+    });
+
+    // Re-throw with context
     throw error as AxiosError;
   }
 };
@@ -46,6 +73,8 @@ export const searchVideos = async ({
   q?: string;
   type?: TypeVideo;
 }) => {
+  checkApiKey();
+
   const params = {
     ...defaultParams,
     q: q,
@@ -59,6 +88,17 @@ export const searchVideos = async ({
     });
     return response;
   } catch (error) {
+    const axiosError = error as AxiosError;
+
+    // Log detailed error information
+    console.error('searchVideos API Error:', {
+      status: axiosError.response?.status,
+      message: axiosError.message,
+      endpoint: '/search',
+      params: params,
+    });
+
+    // Re-throw with context
     throw error as AxiosError;
   }
 };

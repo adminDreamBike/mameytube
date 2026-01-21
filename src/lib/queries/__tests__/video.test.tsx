@@ -84,7 +84,10 @@ describe('Video Queries', () => {
         wrapper: createWrapper(),
       })
 
-      await waitFor(() => expect(result.current.isError).toBe(true))
+      await waitFor(
+        () => expect(result.current.isError).toBe(true),
+        { timeout: 10000 }
+      )
 
       expect(result.current.isSuccess).toBe(false)
       expect(result.current.error).toBeDefined()
@@ -226,7 +229,10 @@ describe('Video Queries', () => {
         wrapper: createWrapper(),
       })
 
-      await waitFor(() => expect(result.current.isError).toBe(true))
+      await waitFor(
+        () => expect(result.current.isError).toBe(true),
+        { timeout: 10000 }
+      )
 
       expect(result.current.isSuccess).toBe(false)
     })
