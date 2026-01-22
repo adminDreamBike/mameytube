@@ -15,7 +15,7 @@ import { VideosResponse } from "@/types/video";
 import { getVideoId } from "@/lib/utils/utils";
 
 interface VideoGridProps {
-    videos: VideosResponse;
+    videos?: VideosResponse;
     isLoading?: boolean;
     hasNextPage?: boolean;
     onLoadMore?: () => void;

@@ -30,6 +30,8 @@ export const YTDurationToSeconds = (duration: any) => {
 
   let match = duration.match(/PT(\d+H)?(\d+M)?(\d+S)?/);
 
+  if (!match) return 0;
+
   match = match.slice(1).map(function(x: any) {
     if (x != null) {
         return x.replace(/\D/, '');
