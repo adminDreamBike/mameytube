@@ -10,8 +10,6 @@ import {
   Link,
   Text,
   Divider,
-  Wrap,
-  WrapItem,
 } from "@chakra-ui/react";
 import { FaHouse } from "react-icons/fa6";
 import { SiYoutubeshorts } from "react-icons/si";
@@ -58,37 +56,33 @@ export const SideBar = ({
             display="flex"
             flexDirection="row"
           >
-            <Wrap>
-              <WrapItem>
-                <IconButton
-                  colorScheme="blue"
-                  onClick={onClose}
-                  aria-label="button open drawer"
-                  icon={<RxHamburgerMenu />}
-                  size="lg"
-                  fontSize="25px"
-                />
-              </WrapItem>
-              <WrapItem>
-                <Link href="/" as={NextLink} alignItems="center" display="flex">
-                  <Icon as={CirclePlay} boxSize={26} color="#F4A644" />
-                  <Text fontWeight="bold" fontSize="20px">MaMeyTube</Text>
-                </Link>
-              </WrapItem>
-            </Wrap>
+            <Flex alignItems="center" gap="2">
+              <IconButton
+                variant={'ghost'}
+                onClick={onClose}
+                aria-label="button open drawer"
+                icon={<RxHamburgerMenu />}
+                size="lg"
+                fontSize="20px"
+              />
+              <Link href="/" as={NextLink} alignItems="center" display="flex">
+                <Icon as={CirclePlay} boxSize={26} color="#F4A644" />
+                <Text fontWeight="bold" fontSize="20px">MaMeyTube</Text>
+              </Link>
+            </Flex>
           </DrawerHeader>
           <DrawerBody>
             <Flex flexDirection="column" marginTop="20px">
               <Link href="/" as={NextLink} display="flex" marginBottom="10px">
-                <Icon as={FaHouse} boxSize={20} />
+                <Icon as={FaHouse} boxSize={5} />
                 <Text marginLeft="10px">Inicio</Text>
               </Link>
               <Link href="/" as={NextLink} display="flex" marginBottom="10px">
-                <Icon as={SiYoutubeshorts} boxSize={20} />
+                <Icon as={SiYoutubeshorts} boxSize={5} />
                 <Text marginLeft="10px">Shorts</Text>
               </Link>
               <Link href="/" as={NextLink} display="flex" marginBottom="10px">
-                <Icon as={RiChatFollowUpFill} boxSize={20} />
+                <Icon as={RiChatFollowUpFill} boxSize={5} />
                 <Text marginLeft="10px">Suscripciones</Text>
               </Link>
               <Divider
@@ -103,31 +97,31 @@ export const SideBar = ({
                 marginTop="30px"
                 marginBottom="10px"
               >
-                <Icon as={GrChannel} boxSize={20} />
+                <Icon as={GrChannel} boxSize={5} />
                 <Text marginLeft="10px">Tu Canal</Text>
               </Link>
               <Link href="/" as={NextLink} display="flex" marginBottom="10px">
-                <Icon as={LuHistory} boxSize={20} />
+                <Icon as={LuHistory} boxSize={5} />
                 <Text marginLeft="10px">Historial</Text>
               </Link>
               <Link href="/" as={NextLink} display="flex" marginBottom="10px">
-                <Icon as={LuListVideo} boxSize={20} />
+                <Icon as={LuListVideo} boxSize={5} />
                 <Text marginLeft="10px">Lista de Reproducciones</Text>
               </Link>
               <Link href="/" as={NextLink} display="flex" marginBottom="10px">
-                <Icon as={LiaFileVideoSolid} boxSize={20} />
+                <Icon as={LiaFileVideoSolid} boxSize={5} />
                 <Text marginLeft="10px">Mis Videos</Text>
               </Link>
               <Link href="/" as={NextLink} display="flex" marginBottom="10px">
-                <Icon as={MdOutlineLocalMovies} boxSize={20} />
+                <Icon as={MdOutlineLocalMovies} boxSize={5} />
                 <Text marginLeft="10px">Mis Peliculas</Text>
               </Link>
               <Link href="/" as={NextLink} display="flex" marginBottom="10px">
-                <Icon as={IoTimeOutline} boxSize={20} />
+                <Icon as={IoTimeOutline} boxSize={5} />
                 <Text marginLeft="10px">Ver Mas Tarde</Text>
               </Link>
               <Link href="/" as={NextLink} display="flex" marginBottom="10px">
-                <Icon as={LuThumbsUp} boxSize={20} />
+                <Icon as={LuThumbsUp} boxSize={5} />
                 <Text marginLeft="10px">Videos que me Gustan</Text>
               </Link>
               <Divider
@@ -147,31 +141,31 @@ export const SideBar = ({
                 Explorar
               </Text>
               <Link href="/" as={NextLink} display="flex" marginBottom="10px">
-                <Icon as={HiOutlineFire} boxSize={20} />
+                <Icon as={HiOutlineFire} boxSize={5} />
                 <Text marginLeft="10px">Tendencias</Text>
               </Link>
               <Link href="/" as={NextLink} display="flex" marginBottom="10px">
-                <Icon as={CiMusicNote1} boxSize={20} />
+                <Icon as={CiMusicNote1} boxSize={5} />
                 <Text marginLeft="10px">Musica</Text>
               </Link>
               <Link href="/" as={NextLink} display="flex" marginBottom="10px">
-                <Icon as={TbLivePhoto} boxSize={20} />
+                <Icon as={TbLivePhoto} boxSize={5} />
                 <Text marginLeft="10px">En Directo</Text>
               </Link>
               <Link href="/" as={NextLink} display="flex" marginBottom="10px">
-                <Icon as={MdOutlineGames} boxSize={20} />
+                <Icon as={MdOutlineGames} boxSize={5} />
                 <Text marginLeft="10px">VideoJuegos</Text>
               </Link>
               <Link href="/" as={NextLink} display="flex" marginBottom="10px">
-                <Icon as={PiNewspaper} boxSize={20} />
+                <Icon as={PiNewspaper} boxSize={5} />
                 <Text marginLeft="10px">Noticias</Text>
               </Link>
               <Link href="/" as={NextLink} display="flex" marginBottom="10px">
-                <Icon as={CiTrophy} boxSize={20} />
+                <Icon as={CiTrophy} boxSize={5} />
                 <Text marginLeft="10px">Deportes</Text>
               </Link>
               <Link href="/" as={NextLink} display="flex" marginBottom="10px">
-                <Icon as={CiBrightnessUp} boxSize={20} />
+                <Icon as={CiBrightnessUp} boxSize={5} />
                 <Text marginLeft="10px">Aprendizaje</Text>
               </Link>
             </Flex>

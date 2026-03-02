@@ -236,6 +236,7 @@ const IframeVideoPlayer: React.FC<IframeVideoPlayerProps> = ({
         opacity={0}
         _hover={{ opacity: 1 }}
         transition="opacity 0.2s"
+        pointerEvents="none"
       >
         <HStack justify="space-between" color="white">
           <Text fontSize="sm" fontWeight="medium" noOfLines={1} flex={1}>
@@ -243,7 +244,7 @@ const IframeVideoPlayer: React.FC<IframeVideoPlayerProps> = ({
           </Text>
           <HStack spacing={2}>
             {muted ? <VolumeX size={16} /> : <Volume2 size={16} />}
-            {allowFullscreen && <Maximize2 size={16} />}
+            {allowFullscreen ? <Maximize2 size={16} /> : null}
           </HStack>
         </HStack>
       </Box>
