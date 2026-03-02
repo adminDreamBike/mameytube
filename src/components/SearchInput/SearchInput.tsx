@@ -30,8 +30,8 @@ export const SearchInput = () => {
   };
   return (
     <StyledInputContainer>
-      <Flex height="40px" flexGrow="2">
-        <InputGroup size="lg" marginRight="12px">
+      <Flex height="40px" flexGrow="2" alignItems="center">
+        <InputGroup size="md" marginRight="12px">
           <Input
             type="text"
             placeholder="Buscar"
@@ -46,16 +46,14 @@ export const SearchInput = () => {
           />
           <InputRightElement
             width="3.5rem"
-            background="lightgray"
-            position="absolute"
             rounded={10}
-            height="42px"
+            height="40px"
           >
             <IconButton
               aria-label="Search database"
               icon={<SearchIcon />}
-              color="gray"
-              colorScheme="gray"
+              variant="ghost"
+              size="md"
               onClick={handleSearchQuery}
             />
           </InputRightElement>

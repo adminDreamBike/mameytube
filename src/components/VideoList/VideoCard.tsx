@@ -19,6 +19,20 @@ import { VideoPreview } from "@/types/video";
 import Link from "next/link";
 import { formatViews, getVideoId, YTDurationToSeconds } from "@/lib/utils/utils";
 
+const formatTimeAgo = (dateString: string) => {
+  const now = new Date();
+  const uploadDate = new Date(dateString);
+  const diffTime = Math.abs(now.getTime() - uploadDate.getTime());
+  const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
+
+  if (diffDays === 0) return "Today";
+  if (diffDays === 1) return "1 day ago";
+  if (diffDays < 7) return `${diffDays} days ago`;
+  if (diffDays < 30) return `${Math.floor(diffDays / 7)} weeks ago`;
+  if (diffDays < 365) return `${Math.floor(diffDays / 30)} months ago`;
+  return `${Math.floor(diffDays / 365)} years ago`;
+};
+
 interface VideoCardProps {
   video: VideoPreview;
   showPreview?: boolean;
@@ -52,20 +66,6 @@ const VideoCard: FC<VideoCardProps> = ({
   const { title, publishedAt, thumbnails, channelTitle } = snippet;
   const { duration } = contentDetails || {};
   const { viewCount } = statistics || {};
-
-  const formatTimeAgo = (dateString: string) => {
-    const now = new Date();
-    const uploadDate = new Date(dateString);
-    const diffTime = Math.abs(now.getTime() - uploadDate.getTime());
-    const diffDays = Math.floor(diffTime / (1000 * 60 * 60 * 24));
-
-    if (diffDays === 0) return "Today";
-    if (diffDays === 1) return "1 day ago";
-    if (diffDays < 7) return `${diffDays} days ago`;
-    if (diffDays < 30) return `${Math.floor(diffDays / 7)} weeks ago`;
-    if (diffDays < 365) return `${Math.floor(diffDays / 30)} months ago`;
-    return `${Math.floor(diffDays / 365)} years ago`;
-  };
 
   const handleMouseEnter = () => {
     if (showPreview) {
@@ -130,7 +130,7 @@ const VideoCard: FC<VideoCardProps> = ({
                     fallback={<Skeleton width="100%" height="100%" />}
                   />
                 )}
-                {duration && (
+                {duration ? (
                 <Badge
                   position="absolute"
                   bottom="2"
@@ -145,9 +145,9 @@ const VideoCard: FC<VideoCardProps> = ({
                 >
                     {YTDurationToSeconds(duration)} ddd
                   </Badge>
-                )}
+                ) : null}
                 {/* Play Icon Overlay */}
-                {!isHovered && (
+                {!isHovered ? (
                   <Box
                     position="absolute"
                     top="50%"
@@ -168,7 +168,7 @@ const VideoCard: FC<VideoCardProps> = ({
                       pointerEvents="none"
                     />
                   </Box>
-                )}
+                ) : null}
               </Box>
             </AspectRatio>
           </Box>

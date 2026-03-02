@@ -25,10 +25,12 @@ export function getCategories() {
   return newCategories;
 }
 
+const YT_DURATION_RE = /PT(\d+H)?(\d+M)?(\d+S)?/;
+
 export const YTDurationToSeconds = (duration: any) => {
   if (!duration) return 0;
 
-  let match = duration.match(/PT(\d+H)?(\d+M)?(\d+S)?/);
+  let match = duration.match(YT_DURATION_RE);
 
   if (!match) return 0;
 

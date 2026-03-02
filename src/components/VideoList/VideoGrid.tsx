@@ -14,6 +14,8 @@ import { useVideoActions } from "@/stores/videos";
 import { VideosResponse } from "@/types/video";
 import { getVideoId } from "@/lib/utils/utils";
 
+const SKELETON_ITEMS = Array.from({ length: 12 });
+
 interface VideoGridProps {
     videos?: VideosResponse;
     isLoading?: boolean;
@@ -63,7 +65,7 @@ const VideoGrid: FC<VideoGridProps> = ({
             <VStack spacing='6' align='stretch'>
                 <Text fontSize='2xl' fontWeight='bold'>{title}</Text>
                 <SimpleGrid columns={columns} spacing={6}>
-                    {Array.from({ length: 12 }).map((_, index) => (
+                    {SKELETON_ITEMS.map((_, index) => (
                         <VStack key={index} spacing='3'>
                             <Skeleton height='200px' borderRadius='lg' />
                             <VStack spacing='2' align='stretch' w='100%'>
@@ -94,7 +96,7 @@ const VideoGrid: FC<VideoGridProps> = ({
                 ))}
             </SimpleGrid>
 
-            {hasNextPage && (
+            {hasNextPage ? (
                 <Button
                     onClick={onLoadMore}
                     isLoading={isLoadingMore}
@@ -103,7 +105,7 @@ const VideoGrid: FC<VideoGridProps> = ({
                 >
                     Load More Videos
                 </Button>
-            )}
+            ) : null}
         </VStack>
     )
 }

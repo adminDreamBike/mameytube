@@ -95,34 +95,34 @@ export const VideoPlayerContainer: React.FC<VideoPlayerContainerProps> = ({
   const videoId = getVideoId(id);
 
   const handleLike = useCallback(() => {
-    const newLikedState = !liked;
-    setLiked(newLikedState);
-    onLike?.(videoId, newLikedState);
-
-    toast({
-      title: newLikedState
-        ? "Added to liked videos"
-        : "Removed from liked videos",
-      status: "success",
-      duration: 2000,
-      isClosable: true,
+    setLiked((prev) => {
+      const next = !prev;
+      onLike?.(videoId, next);
+      toast({
+        title: next ? "Added to liked videos" : "Removed from liked videos",
+        status: "success",
+        duration: 2000,
+        isClosable: true,
+      });
+      return next;
     });
-  }, [liked, onLike, toast, videoId]);
+  }, [onLike, toast, videoId]);
 
   const handleSubscribe = useCallback(() => {
-    const newSubscribedState = !subscribed;
-    setSubscribed(newSubscribedState);
-    onSubscribe?.(snippet.channelId, newSubscribedState);
-
-    toast({
-      title: newSubscribedState
-        ? `Subscribed to ${snippet.channelTitle}`
-        : `Unsubscribed from ${snippet.channelTitle}`,
-      status: "success",
-      duration: 2000,
-      isClosable: true,
+    setSubscribed((prev) => {
+      const next = !prev;
+      onSubscribe?.(snippet.channelId, next);
+      toast({
+        title: next
+          ? `Subscribed to ${snippet.channelTitle}`
+          : `Unsubscribed from ${snippet.channelTitle}`,
+        status: "success",
+        duration: 2000,
+        isClosable: true,
+      });
+      return next;
     });
-  }, [subscribed, onSubscribe, snippet.channelId, snippet.channelTitle, toast]);
+  }, [onSubscribe, snippet.channelId, snippet.channelTitle, toast]);
 
   const handleShare = useCallback(
     async (method?: "native" | "copy" | "social") => {
@@ -168,17 +168,16 @@ export const VideoPlayerContainer: React.FC<VideoPlayerContainerProps> = ({
   );
 
   const handleBookmark = useCallback(() => {
-    const newBookmarkedState = !bookmarked;
-    setBookmarked(newBookmarkedState);
-
-    toast({
-      title: newBookmarkedState
-        ? "Added to bookmarks"
-        : "Removed from bookmarks",
-      status: "success",
-      duration: 2000,
+    setBookmarked((prev) => {
+      const next = !prev;
+      toast({
+        title: next ? "Added to bookmarks" : "Removed from bookmarks",
+        status: "success",
+        duration: 2000,
+      });
+      return next;
     });
-  }, [bookmarked, toast]);
+  }, [toast]);
 
   const handleReport = useCallback(
     (reason: string) => {
@@ -287,14 +286,14 @@ export const VideoPlayerContainer: React.FC<VideoPlayerContainerProps> = ({
                       Share
                     </MenuButton>
                     <MenuList>
-                      {typeof navigator.share === 'function' && (
+                      {typeof navigator.share === 'function' ? (
                         <MenuItem
                           icon={<FiExternalLink />}
                           onClick={() => handleShare("native")}
                         >
                           Share via...
                         </MenuItem>
-                      )}
+                      ) : null}
                       <MenuItem
                         icon={<FiCopy />}
                         onClick={() => handleShare("copy")}
@@ -315,7 +314,7 @@ export const VideoPlayerContainer: React.FC<VideoPlayerContainerProps> = ({
                     size="sm"
                     onClick={handleBookmark}
                   />
-                  {onDownload && (
+                  {onDownload ? (
                     <IconButton
                       aria-label="Download video"
                       icon={<FiDownload />}
@@ -323,7 +322,7 @@ export const VideoPlayerContainer: React.FC<VideoPlayerContainerProps> = ({
                       size="sm"
                       onClick={() => onDownload(video)}
                     />
-                  )}
+                  ) : null}
                   <Menu>
                     <MenuButton
                       as={IconButton}
@@ -395,7 +394,7 @@ export const VideoPlayerContainer: React.FC<VideoPlayerContainerProps> = ({
                 </Button>
               </HStack>
 
-              {video.snippet?.description && (
+              {video.snippet?.description ? (
                 <Box>
                   <Collapse
                     in={showFullDescription}
@@ -418,30 +417,31 @@ export const VideoPlayerContainer: React.FC<VideoPlayerContainerProps> = ({
                     leftIcon={
                       showFullDescription ? <FiChevronUp /> : <FiChevronDown />
                     }
-                    onClick={() => setShowFullDescription(!showFullDescription)}
+                    onClick={() => setShowFullDescription((prev) => !prev)}
                     mt="2"
                   >
                     {showFullDescription ? "Show less" : "Show more"}
                   </Button>
                 </Box>
-              )}
+              ) : null}
 
-              {video.snippet?.tags && video.snippet?.tags.length > 0 && (
+              {video.snippet?.tags && video.snippet?.tags.length > 0 ? (
                 <HStack spacing="2" flexWrap="wrap">
                   {video.snippet?.tags.slice(0, 5).map((tag) => (
-                    <Badge
-                      key={tag}
-                      variant="subtle"
-                      colorScheme="gray"
-                      fontSize="xs"
-                      cursor="pointer"
-                      _hover={{ bg: "gray.200" }}
-                    >
-                      #{tag}
-                    </Badge>
+                    <Link key={tag} href={`/hashtag/${encodeURIComponent(tag)}`}>
+                      <Badge
+                        variant="subtle"
+                        colorScheme="gray"
+                        fontSize="xs"
+                        cursor="pointer"
+                        _hover={{ bg: "gray.200" }}
+                      >
+                        #{tag}
+                      </Badge>
+                    </Link>
                   ))}
                 </HStack>
-              )}
+              ) : null}
             </VStack>
           </VStack>
         )}

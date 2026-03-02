@@ -6,6 +6,13 @@ const nextConfig = {
   },
   experimental: {
     missingSuspenseWithCSRBailout: false,
+    optimizePackageImports: [
+      "lucide-react",
+      "react-icons",
+      "@chakra-ui/react",
+      "@chakra-ui/icons",
+      "@nextui-org/react",
+    ],
   },
 };
 
