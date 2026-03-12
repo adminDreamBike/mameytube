@@ -5,7 +5,7 @@ import {
   formatDuration,
   formatUploadDate,
   getVideoId,
-} from '@/lib/utils/utils'
+} from '@lib/utils/utils'
 import { VideoId } from '@/types/video'
 
 describe('getCategories', () => {

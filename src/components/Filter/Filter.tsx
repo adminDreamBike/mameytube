@@ -1,8 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
-import { getCategories } from "@/lib/utils/utils";
-import { useVideoActions } from "@/stores/videos";
+import { getCategories } from "@lib/utils/utils";
+import { useVideoActions } from "@stores/videos";
 import { Button, ButtonGroup, HStack, IconButton } from "@chakra-ui/react";
 import { useState, useRef } from "react";
 import { MdArrowBackIosNew, MdArrowForwardIos } from "react-icons/md";

@@ -3,12 +3,12 @@
 import dynamic from "next/dynamic";
 import { ChakraUIProvider } from "@/providers/ChakraUIProvider";
 import ReactQueryProvider from "@/providers/ReactQueryProvider";
-import { Header } from "@/components/Header/Header";
-import { Footer } from "@/components/Footer/Footer";
+import { Header } from "@components/Header/Header";
+import { Footer } from "@components/Footer/Footer";
 import { useDisclosure } from "@chakra-ui/react";
 
 const SideBar = dynamic(
-  () => import("@/components/SideBar/SideBar").then((m) => m.SideBar),
+  () => import("@components/SideBar/SideBar").then((m) => m.SideBar),
   { ssr: false }
 );
 

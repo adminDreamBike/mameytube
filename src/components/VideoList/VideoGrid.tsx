@@ -10,9 +10,9 @@ import {
   SimpleGrid,
 } from "@chakra-ui/react";
 import VideoCard from "./VideoCard";
-import { useVideoActions } from "@/stores/videos";
+import { useVideoActions } from "@stores/videos";
 import { VideosResponse } from "@/types/video";
-import { getVideoId } from "@/lib/utils/utils";
+import { getVideoId } from "@lib/utils/utils";
 
 const SKELETON_ITEMS = Array.from({ length: 12 });
 

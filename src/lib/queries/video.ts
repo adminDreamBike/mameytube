@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { getVideo, searchVideos } from "@/lib/api/video";
+import { getVideo, searchVideos } from "@lib/api/video";
 import { IVideo } from "../types";
 
 export const useVideos = ({ q, initialVideos }: IVideo) => {

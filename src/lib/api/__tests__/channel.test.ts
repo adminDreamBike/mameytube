@@ -1,6 +1,6 @@
 import MockAdapter from 'axios-mock-adapter'
-import apiClient from '@/lib/api/apiClient'
-import { searchChannel } from '@/lib/api/channel'
+import apiClient from '@lib/api/apiClient'
+import { searchChannel } from '@lib/api/channel'
 
 describe('Channel API', () => {
   let mock: MockAdapter
