@@ -17,7 +17,7 @@ import {
 import { FiPlay, FiEye, FiMoreVertical } from "react-icons/fi";
 import { VideoPreview } from "@/types/video";
 import Link from "next/link";
-import { formatViews, getVideoId, YTDurationToSeconds } from "@/lib/utils/utils";
+import { formatViews, getVideoId, YTDurationToSeconds } from "@lib/utils/utils";
 
 const formatTimeAgo = (dateString: string) => {
   const now = new Date();

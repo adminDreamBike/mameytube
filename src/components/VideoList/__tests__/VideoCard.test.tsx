@@ -1,5 +1,5 @@
 import { render, screen, fireEvent } from '@testing-library/react'
-import VideoCard from '@/components/VideoList/VideoCard'
+import VideoCard from '@components/VideoList/VideoCard'
 import { VideoPreview } from '@/types/video'
 import { ChakraProvider } from '@chakra-ui/react'
 import { ReactNode } from 'react'

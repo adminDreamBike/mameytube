@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Item } from "@/lib/types";
-import { getVideoId } from "@/lib/utils/utils";
+import { Item } from "@lib/types";
+import { getVideoId } from "@lib/utils/utils";
 import { VideoPreview } from "@/types/video";
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";

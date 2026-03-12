@@ -1,6 +1,6 @@
 import "./globals.css";
 import { fonts } from "./fonts";
-import { AppShell } from "@/components/AppShell";
+import { AppShell } from "@components/AppShell";
 
 export default function RootLayout({
   children,

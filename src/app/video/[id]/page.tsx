@@ -1,8 +1,8 @@
 "use client";
 
-import VideoGrid from "@/components/VideoList/VideoGrid";
-import { VideoPlayerContainer } from "@/components/VideoPlayer/VideoPlayerContainer";
-import { useVideoById, useVideos } from "@/stores/videos";
+import VideoGrid from "@components/VideoList/VideoGrid";
+import { VideoPlayerContainer } from "@components/VideoPlayer/VideoPlayerContainer";
+import { useVideoById, useVideos } from "@stores/videos";
 import { Box, Container, Flex, Text } from "@chakra-ui/react";
 
 interface VideoPageProps {

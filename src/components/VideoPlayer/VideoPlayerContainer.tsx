@@ -41,7 +41,7 @@ import { VideoPlayerType, VideoPreview } from "@/types/video";
 //import { NativeVideoPlayer } from "./NativeVideoPlayer";
 import VideoPlayerContainerSkeleton from "./VideoPlayerContainerSkeleton";
 import IframeVideoPlayer from "../VideoList/IframeVideoPlayer";
-import { formatDuration, formatUploadDate, formatViews, getVideoId } from "@/lib/utils/utils";
+import { formatDuration, formatUploadDate, formatViews, getVideoId } from "@lib/utils/utils";
 
 interface VideoPlayerContainerProps {
   video: VideoPreview;

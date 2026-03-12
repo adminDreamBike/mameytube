@@ -1,9 +1,9 @@
 "use client"
 
-import VideoGrid from "@/components/VideoList/VideoGrid";
-import ErrorDisplay from "@/components/ErrorDisplay";
-import { useSearchVideos } from "@/lib/queries/video";
-import { useVideoActions } from "@/stores/videos";
+import VideoGrid from "@components/VideoList/VideoGrid";
+import ErrorDisplay from "@components/ErrorDisplay";
+import { useSearchVideos } from "@lib/queries/video";
+import { useVideoActions } from "@stores/videos";
 import { Flex } from "@chakra-ui/react";
 import { useSearchParams } from "next/navigation";
 import { useEffect } from "react";

@@ -1,6 +1,6 @@
-import VideoGrid from "@/components/VideoList/VideoGrid";
-import ErrorDisplay from "@/components/ErrorDisplay";
-import { getVideo } from "@/lib/api/video";
+import VideoGrid from "@components/VideoList/VideoGrid";
+import ErrorDisplay from "@components/ErrorDisplay";
+import { getVideo } from "@lib/api/video";
 
 async function getInitialVideos() {
   try {

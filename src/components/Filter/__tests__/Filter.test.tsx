@@ -1,11 +1,11 @@
 import { render, screen } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { Filter } from '@/components/Filter/Filter'
-import * as videosStore from '@/stores/videos'
+import { Filter } from '@components/Filter/Filter'
+import * as videosStore from '@stores/videos'
 import { ChakraProvider } from '@chakra-ui/react'
 import { ReactNode } from 'react'
 
-jest.mock('@/stores/videos', () => ({
+jest.mock('@stores/videos', () => ({
   useVideoActions: jest.fn(),
 }))
 

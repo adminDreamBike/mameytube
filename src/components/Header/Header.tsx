@@ -13,6 +13,10 @@ import { RxHamburgerMenu } from "react-icons/rx";
 import { HiOutlinePlus } from "react-icons/hi2";
 import { CirclePlay } from "lucide-react";
 
+const hamburgerIcon = <RxHamburgerMenu />;
+const plusIcon = <HiOutlinePlus />;
+const bellIcon = <BsBell />;
+
 export const Header = ({ onOpen }: { onOpen: () => void }) => {
   return (
     <Flex
@@ -26,7 +30,7 @@ export const Header = ({ onOpen }: { onOpen: () => void }) => {
           variant="ghost"
           onClick={onOpen}
           aria-label="button open drawer"
-          icon={<RxHamburgerMenu />}
+          icon={hamburgerIcon}
           size="lg"
           fontSize="20px"
           fontWeight={'bold'}
@@ -44,8 +48,7 @@ export const Header = ({ onOpen }: { onOpen: () => void }) => {
           variant="ghost"
           onClick={onOpen}
           aria-label="post new video"
-          icon={<HiOutlinePlus />}
-          // size="lg"
+          icon={plusIcon}
           fontSize="25px"
           margin="15px"
         />
@@ -53,8 +56,7 @@ export const Header = ({ onOpen }: { onOpen: () => void }) => {
           variant="ghost"
           onClick={onOpen}
           aria-label="open notifications"
-          icon={<BsBell />}
-          // size="lg"
+          icon={bellIcon}
           fontSize="25px"
           margin="15px"
         />

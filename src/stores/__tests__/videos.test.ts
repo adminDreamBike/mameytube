@@ -6,7 +6,7 @@ import {
   useVideos,
   useChannelIds,
   useVideoById,
-} from '@/stores/videos'
+} from '@stores/videos'
 
 const mockVideo = {
   kind: 'youtube#videoListResponse',

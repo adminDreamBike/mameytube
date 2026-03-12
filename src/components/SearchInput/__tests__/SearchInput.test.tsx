@@ -1,6 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/react'
 import userEvent from '@testing-library/user-event'
-import { SearchInput } from '@/components/SearchInput/SearchInput'
+import { SearchInput } from '@components/SearchInput/SearchInput'
 import { ChakraProvider } from '@chakra-ui/react'
 import { ReactNode } from 'react'
 

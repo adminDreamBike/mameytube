@@ -1,6 +1,6 @@
 import MockAdapter from 'axios-mock-adapter'
-import apiClient from '@/lib/api/apiClient'
-import { getVideo, searchVideos } from '@/lib/api/video'
+import apiClient from '@lib/api/apiClient'
+import { getVideo, searchVideos } from '@lib/api/video'
 
 describe('Video API', () => {
   let mock: MockAdapter

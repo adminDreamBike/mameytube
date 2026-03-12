@@ -1,8 +1,8 @@
 import { renderHook, waitFor } from '@testing-library/react'
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query'
 import MockAdapter from 'axios-mock-adapter'
-import apiClient from '@/lib/api/apiClient'
-import { useVideos, useSearchVideos } from '@/lib/queries/video'
+import apiClient from '@lib/api/apiClient'
+import { useVideos, useSearchVideos } from '@lib/queries/video'
 import { ReactNode } from 'react'
 
 const createWrapper = () => {
