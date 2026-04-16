@@ -1,10 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import { getVideo, searchVideos } from "@lib/api/video";
 import { IVideo } from "../types";
+import { QUERY_KEYS } from "../queryKeys";
 
 export const useVideos = ({ q, initialVideos }: IVideo) => {
   const { data, isLoading, isError, error, isSuccess } = useQuery({
-    queryKey: ["videos", "items", q],
+    queryKey: [QUERY_KEYS.videos, "items", q],
     queryFn: () => getVideo({ q }),
     initialData: initialVideos,
     retry: (failureCount, error) => {
@@ -28,7 +29,7 @@ export const useVideos = ({ q, initialVideos }: IVideo) => {
 
 export const useSearchVideos = ({ q }: IVideo) => {
   const { data, isLoading, isError, error, isSuccess } = useQuery({
-    queryKey: ["videos", "search", q],
+    queryKey: [QUERY_KEYS.videos, "search", q],
     queryFn: () => searchVideos({ q }),
     retry: (failureCount, error) => {
       const err = error as { response?: { status?: number }; status?: number };
