@@ -19,7 +19,11 @@ import { VideoPreview } from "@/types/video";
 import Link from "next/link";
 import { formatViews, getVideoId, YTDurationToSeconds } from "@lib/utils/utils";
 
+const timeAgoCache = new Map<string, string>();
+
 const formatTimeAgo = (dateString: string) => {
+  if (timeAgoCache.has(dateString)) return timeAgoCache.get(dateString);
+
   const now = new Date();
   const uploadDate = new Date(dateString);
   const diffTime = Math.abs(now.getTime() - uploadDate.getTime());
@@ -30,7 +34,10 @@ const formatTimeAgo = (dateString: string) => {
   if (diffDays < 7) return `${diffDays} days ago`;
   if (diffDays < 30) return `${Math.floor(diffDays / 7)} weeks ago`;
   if (diffDays < 365) return `${Math.floor(diffDays / 30)} months ago`;
-  return `${Math.floor(diffDays / 365)} years ago`;
+  
+  const result = `${Math.floor(diffDays / 365)} years ago`
+  timeAgoCache.set(dateString, result)
+  return result;
 };
 
 interface VideoCardProps {

@@ -1,10 +1,19 @@
-"use client";
+'use client'
 
+import { useEffect } from 'react';
+import dynamic from "next/dynamic";
 import VideoGrid from "@components/VideoList/VideoGrid";
-import { VideoPlayerContainer } from "@components/VideoPlayer/VideoPlayerContainer";
 import { useVideoById, useVideos } from "@stores/videos";
 import { Box, Container, Flex, Text } from "@chakra-ui/react";
+import VideoPlayerContainerSkeleton from "@/components/VideoPlayer/VideoPlayerContainerSkeleton";
 
+const VideoPlayerContainer = dynamic(
+  () =>
+    import("@components/VideoPlayer/VideoPlayerContainer").then(
+      (m) => m.VideoPlayerContainer,
+    ),
+  { ssr: false, loading: () => <VideoPlayerContainerSkeleton /> },
+);
 interface VideoPageProps {
   params: { id: string };
 }
@@ -28,7 +37,11 @@ export default function VideoPage({ params }: VideoPageProps) {
           )}
         </Box>
 
-        <VideoGrid videos={relatedVideos} title="Related Videos" isRelated={true} />
+        <VideoGrid
+          videos={relatedVideos}
+          title="Related Videos"
+          isRelated={true}
+        />
       </Flex>
     </Container>
   );

@@ -1,6 +1,7 @@
 import VideoGrid from "@components/VideoList/VideoGrid";
 import ErrorDisplay from "@components/ErrorDisplay";
 import { getVideo } from "@lib/api/video";
+import { Metadata } from "next";
 
 async function getInitialVideos() {
   try {
@@ -17,6 +18,27 @@ async function getInitialVideos() {
         details: err?.response?.data || err,
       }
     };
+  }
+}
+
+export async function generateMetadata(): Promise<Metadata> {
+  const videos = await getVideo({})
+  const firstVideo = videos.data.items[0];
+  const totalCount = videos.data.items.length ?? 0;
+
+  return {
+    title: firstVideo.snippet.title ?  `${firstVideo.snippet.title} - MammeyTube` : 'MammeyTube Videos',
+    description: `Explore ${totalCount} videos on our platform`,
+    openGraph: {
+      title: firstVideo?.snippet.title ?? 'MammeyTube',
+      description: `Browse ${totalCount} videos`,
+      images: firstVideo?.snippet.thumbnails ? [{url: firstVideo.snippet.thumbnails?.high?.url, width: '100%', height: '100%' }] : []
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: firstVideo?.snippet.title ?? 'MammeyTube',
+      images: firstVideo?.snippet.thumbnails ? [{url: firstVideo.snippet.thumbnails?.high?.url, width: '100%', height: '100%' }] : []
+    }
   }
 }
 
