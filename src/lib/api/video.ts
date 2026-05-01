@@ -2,6 +2,7 @@
 import { AxiosError } from "axios";
 import { TypeVideo } from "../types";
 import apiClient from "./apiClient";
+import { cache } from "react";
 
 const defaultParams = {
   part: "snippet",
@@ -102,3 +103,6 @@ export const searchVideos = async ({
     throw error as AxiosError;
   }
 };
+
+
+export const getCachedVideo = cache(getVideo)

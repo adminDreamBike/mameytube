@@ -122,7 +122,7 @@ export const VideoPlayerContainer: React.FC<VideoPlayerContainerProps> = ({
       });
       return next;
     });
-  }, [onSubscribe, snippet.channelId, snippet.channelTitle, toast]);
+  }, [onSubscribe, snippet?.channelId, snippet?.channelTitle, toast]);
 
   const handleShare = useCallback(
     async (method?: "native" | "copy" | "social") => {
@@ -164,7 +164,7 @@ export const VideoPlayerContainer: React.FC<VideoPlayerContainerProps> = ({
         onShare?.(video);
       }
     },
-    [onShare, toast, video, snippet.title, snippet.description]
+    [onShare, toast, video, snippet?.title, snippet?.description]
   );
 
   const handleBookmark = useCallback(() => {
@@ -243,7 +243,7 @@ export const VideoPlayerContainer: React.FC<VideoPlayerContainerProps> = ({
                   fontWeight="bold"
                   lineHeight="1.3"
                 >
-                  {snippet.title}
+                  {snippet?.title}
                 </Text>
                 <HStack
                   spacing="4"
@@ -348,7 +348,7 @@ export const VideoPlayerContainer: React.FC<VideoPlayerContainerProps> = ({
 
             <VStack justify="space-between" align="flex-start">
               <HStack spacing="3" flex="1">
-                <Link href={`/channel/${video.snippet?.channelId}`} passHref>
+                <Link href={`/channel/${video?.snippet?.channelId}`} passHref>
                   <ChakraLink>
                     <Avatar
                       size="md"
@@ -359,7 +359,7 @@ export const VideoPlayerContainer: React.FC<VideoPlayerContainerProps> = ({
                 </Link>
                 <VStack spacing="0" align="start" flex="1" minW="0">
                   <HStack spacing="2">
-                    <Link href={`/channel/${video.snippet?.channelId}`} passHref>
+                    <Link href={`/channel/${video?.snippet?.channelId}`} passHref>
                       <ChakraLink
                         fontWeight="semibold"
                         _hover={{ textDecoration: "underline" }}
@@ -394,7 +394,7 @@ export const VideoPlayerContainer: React.FC<VideoPlayerContainerProps> = ({
                 </Button>
               </HStack>
 
-              {video.snippet?.description ? (
+              {video?.snippet?.description ? (
                 <Box>
                   <Collapse
                     in={showFullDescription}
@@ -425,7 +425,7 @@ export const VideoPlayerContainer: React.FC<VideoPlayerContainerProps> = ({
                 </Box>
               ) : null}
 
-              {video.snippet?.tags && video.snippet?.tags.length > 0 ? (
+              {video?.snippet?.tags && video.snippet?.tags.length > 0 ? (
                 <HStack spacing="2" flexWrap="wrap">
                   {video.snippet?.tags.slice(0, 5).map((tag) => (
                     <Link key={tag} href={`/hashtag/${encodeURIComponent(tag)}`}>

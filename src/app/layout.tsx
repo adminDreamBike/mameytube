@@ -16,7 +16,7 @@ export default function RootLayout({
         />
       </head>
       <body className={`${fonts.rubik.variable} antialiased`}>
-        <AppShell>{children}</AppShell>
+        <AppShell >{children}</AppShell>
       </body>
     </html>
   );
