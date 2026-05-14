@@ -5,7 +5,8 @@ import VideoPlayerContainerSkeleton from "@/components/VideoPlayer/VideoPlayerCo
 import { getCachedVideo } from "@/lib/api/video";
 import { getVideoId } from "@/lib/utils/utils";
 import { notFound } from "next/navigation";
-import { Item } from "@/lib/types";
+import { Item, RootObject } from "@/lib/types";
+import { Metadata } from "next";
 
 const VideoPlayerContainer = dynamic(
   () =>
@@ -18,33 +19,44 @@ interface VideoPageProps {
   params: { id: string };
 }
 
+const getVideoById = (id: string, videos: RootObject) => {
+  if(!videos) return undefined;
+
+  const { items } = videos
+
+  const videoById = items?.find((video: Item) => video.id === id);
+  
+
+  return videoById;
+};
+
 export async function generateStaticParams() {
-  const { data } = await getCachedVideo({});
-  return data.items.map((v: string) => ({ id: getVideoId(v) }));
+  const { items } = await getCachedVideo({});
+  return items.map((v: string) => ({ id: getVideoId(v) }));
 }
 
-async function getVideos() {
-  const response = await getCachedVideo({});
-  return { data: response?.data, error: null };
+export async function generateMetadata({ params }: VideoPageProps): Promise<Metadata> {
+  const { id } = params;
+
+  const { data } = await getCachedVideo({});
+  const filteredVideo = getVideoById(id, data);
+  return {
+    title: filteredVideo?.snippet.title,
+  };
 }
+
 export const revalidate = 3600;
 export const dynamicParams = true;
 
 export default async function VideoPage({ params }: VideoPageProps) {
   const { id } = params;
 
-  const videos = await getVideos();
-
+  const videos = await getCachedVideo({});
+  
   if (!videos) notFound();
 
-  const getVideoById = (id: string) => {
-    const video = videos?.data?.items.find((video: Item) => video.id === id);
-
-    return video;
-  };
-
-  const filteredVideo = getVideoById(id);
-
+  const filteredVideo = getVideoById(id, videos);
+  
   if (!filteredVideo) notFound();
 
   return (
@@ -60,7 +72,7 @@ export default async function VideoPage({ params }: VideoPageProps) {
         </Box>
 
         <VideoGrid
-          videos={videos?.data}
+          videos={videos?.items}
           title="Related Videos"
           isRelated={true}
         />

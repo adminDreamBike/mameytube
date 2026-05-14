@@ -5,16 +5,6 @@ import { VideoPreview } from "@/types/video";
 import { create } from "zustand";
 import { createJSONStorage, persist } from "zustand/middleware";
 
-// interface VideoState {
-//   kind: string;
-//   etag: string;
-//   items: VideoPreview[];
-//   nextPageToken: string;
-//   pageInfo: {
-//     totalResults: number;
-//     resultsPerPage: number;
-//   };
-// }
 interface Actions {
   setVideos: (video: any) => void;
   getVideoById: (id: string) => Item | undefined;
@@ -56,8 +46,7 @@ const useVideoStore = create<VideoStore>()(
       channelIds: "",
       actions: {
         setVideos: (video) => set(() => ({ video })),
-        getVideoById: (id) => {
-          console.log("get().video.data?.items", get().video)
+        getVideoById: (id) => {          
           return get().video.data?.items.find((item: VideoPreview) => item.id === id);
         },
         setSelectedCategoryId: (categoryId) =>

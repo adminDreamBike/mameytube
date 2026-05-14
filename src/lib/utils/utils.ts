@@ -78,7 +78,7 @@ export const formatDuration = (duration: string) => {
   return parts.join(' ');
 }
 
-export const formatUploadDate = (dateString: string) => {
+export const formatUploadDate = (dateString: Date) => {
   const date = new Date(dateString);
   const now = new Date();
   const diffTime = Math.abs(now.getTime() - date.getTime());

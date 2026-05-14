@@ -50,7 +50,8 @@ export const getVideo = async ({
     const response = await apiClient.get("/videos", {
       params: params,
     });
-    return response;
+
+    return response.data;
   } catch (error) {
     const axiosError = error as AxiosError;
 

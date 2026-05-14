@@ -17,6 +17,7 @@ export interface Item {
   kind: string;
   snippet: Snippet;
   statistics: Statistics;
+  contentDetails?: ContentDetails;
 }
 
 export interface Snippet {
@@ -31,6 +32,7 @@ export interface Snippet {
   title: string;
   country?: string;
   customUrl?: string;
+  tags: string[];
 }
 
 export interface Localized {
@@ -57,6 +59,21 @@ export interface Statistics {
   favoriteCount: string;
   likeCount: string;
   viewCount: string;
+}
+
+export interface RegionRestriction {
+  blocked: string[];
+}
+
+export interface ContentDetails {
+  duration: string;
+  dimension: string;
+  definition: string;
+  caption: string;
+  licensedContent: boolean;
+  regionRestriction: RegionRestriction;
+  contentRating: Record<string, unknown>;
+  projection: string;
 }
 
 export interface PageInfo {

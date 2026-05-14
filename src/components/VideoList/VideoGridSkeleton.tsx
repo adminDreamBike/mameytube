@@ -24,7 +24,7 @@ const VideoGridSkeleton = ({ count = 6 }: VideoGridSkeletonProps) => {
         gap={5}
       >
         {Array.from({ length: count }).map((_, i) => (
-          <VideoCardSkeleton key={1} />
+          <VideoCardSkeleton key={i} />
         ))}
       </Grid>
     </Container>

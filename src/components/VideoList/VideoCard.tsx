@@ -15,9 +15,9 @@ import {
   useBreakpointValue,
 } from "@chakra-ui/react";
 import { FiPlay, FiEye, FiMoreVertical } from "react-icons/fi";
-import { VideoPreview } from "@/types/video";
 import Link from "next/link";
 import { formatViews, getVideoId, YTDurationToSeconds } from "@lib/utils/utils";
+import { Item } from "@/lib/types";
 
 const timeAgoCache = new Map<string, string>();
 
@@ -41,7 +41,7 @@ const formatTimeAgo = (dateString: string) => {
 };
 
 interface VideoCardProps {
-  video: VideoPreview;
+  video: Item;
   showPreview?: boolean;
   onHover?: (videoId: string | undefined) => void;
   onLeave?: () => void;
@@ -222,10 +222,10 @@ const VideoCard: FC<VideoCardProps> = ({
                   <HStack spacing="1" fontSize="xs" color={textColor}>
                     <HStack spacing="1">
                       <FiEye />
-                      <Text>{formatViews(viewCount || 0)}</Text>
+                      <Text>{formatViews(Number(viewCount))}</Text>
                     </HStack>
                     <Text>•</Text>
-                    <Text>{formatTimeAgo(publishedAt)}</Text>
+                    {/* <Text>{formatTimeAgo(publishedAt)}</Text> */}
                   </HStack>
                 </VStack>
               </HStack>

@@ -8,7 +8,8 @@ import { Skeleton, Stack } from "@chakra-ui/react";
 async function getInitialVideos() {
   try {
     const response = await getCachedVideo({});
-    return { data: response?.data, error: null };
+    
+    return { data: response.items, error: null };
   } catch (error) {
     const err = error as {
       message?: string;
@@ -29,8 +30,8 @@ async function getInitialVideos() {
 
 export async function generateMetadata(): Promise<Metadata> {
   const videos = await getCachedVideo({});
-  const firstVideo = videos.data.items[0];
-  const totalCount = videos.data.items.length ?? 0;
+  const firstVideo = videos.items[0];
+  const totalCount = videos.items.length ?? 0;
 
   return {
     title: firstVideo.snippet.title

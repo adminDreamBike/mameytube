@@ -37,24 +37,24 @@ import {
   FiChevronUp,
 } from "react-icons/fi";
 import Link from "next/link";
-import { VideoPlayerType, VideoPreview } from "@/types/video";
-//import { NativeVideoPlayer } from "./NativeVideoPlayer";
+import { VideoPlayerType } from "@/types/video";
 import VideoPlayerContainerSkeleton from "./VideoPlayerContainerSkeleton";
 import IframeVideoPlayer from "../VideoList/IframeVideoPlayer";
 import { formatDuration, formatUploadDate, formatViews, getVideoId } from "@lib/utils/utils";
+import { Item } from "@/lib/types";
 
 interface VideoPlayerContainerProps {
-  video: VideoPreview;
+  video: Item;
   playerType: VideoPlayerType;
   showInfo?: boolean;
   showRelatedVideos?: boolean;
   autoPlay?: boolean;
   muted?: boolean;
   onLike?: (videoId: string | undefined, isLiked: boolean) => void;
-  onShare?: (video: VideoPreview) => void;
-  onSubscribe?: (authorId: string, isSubscribed: boolean) => void;
+  onShare?: (video: Item) => void;
+  onSubscribe?: (authorId: string | undefined, isSubscribed: boolean) => void;
   onReport?: (videoId: string | undefined, reason: string) => string;
-  onDownload?: (video: VideoPreview) => void;
+  onDownload?: (video: Item) => void;
   isLiked?: boolean;
   isSubscribed?: boolean;
   isBookmarked?: boolean;
@@ -90,7 +90,7 @@ export const VideoPlayerContainer: React.FC<VideoPlayerContainerProps> = ({
   const textColor = useColorModeValue("gray.600", "gray.300");
   const mutedTextColor = useColorModeValue("gray.500", "gray.400");
 
-  const { snippet, id, contentDetails } = video || {};
+  const { snippet, id, contentDetails } = video;
 
   const videoId = getVideoId(id);
 
@@ -194,7 +194,7 @@ export const VideoPlayerContainer: React.FC<VideoPlayerContainerProps> = ({
   if (loading) {
     return <VideoPlayerContainerSkeleton />;
   }
-
+  
   return (
     <Box
       className={className}
@@ -253,7 +253,7 @@ export const VideoPlayerContainer: React.FC<VideoPlayerContainerProps> = ({
                 >
                   <HStack spacing="1">
                     <FiEye />
-                    <Text>{formatViews(video?.statistics?.viewCount || 0)}</Text>
+                    <Text>{formatViews(Number(video?.statistics?.viewCount) || 0)}</Text>
                   </HStack>
                   <Text>.</Text>
                   <HStack spacing="1">
@@ -427,7 +427,7 @@ export const VideoPlayerContainer: React.FC<VideoPlayerContainerProps> = ({
 
               {video?.snippet?.tags && video.snippet?.tags.length > 0 ? (
                 <HStack spacing="2" flexWrap="wrap">
-                  {video.snippet?.tags.slice(0, 5).map((tag) => (
+                  {video.snippet.tags.slice(0, 5).map((tag) => (
                     <Link key={tag} href={`/hashtag/${encodeURIComponent(tag)}`}>
                       <Badge
                         variant="subtle"
